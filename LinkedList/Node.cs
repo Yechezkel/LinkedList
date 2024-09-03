@@ -64,7 +64,7 @@ namespace LinkedList
                 Head = newNode;
                 return;
             }
-            while (temp.GetNext!=null)
+            while (temp.GetNext()!=null)//הוספתי סוגריים
                 temp = temp.GetNext();
             temp.SetNext(newNode);
         }
@@ -75,9 +75,10 @@ namespace LinkedList
             if (temp == null)
                 return "";
             string str = "" + temp.GetValue();
+            temp = temp.GetNext();//הוספתי את השורה הזו
             while (temp != null)
             {
-                str += "-> " + temp.GetValue();
+                str += " -> " + temp.GetValue();
                 temp = temp.GetNext();
             }
             return str;   
@@ -113,7 +114,7 @@ namespace LinkedList
                 if (current.GetValue() == value)
                 {
                     prev.SetNext(current.GetNext());
-                    break;
+                    return;//במקום break
                 }
                 prev = current;
                 current = current.GetNext();
@@ -156,6 +157,11 @@ namespace LinkedList
         // Method to remove the value in an index
         public void RemoveIndex(int index)
         {
+            if (index == 0)//הוספתי
+                {
+                Head = Head.GetNext();
+                return;
+            }
             Node current = Head;
             for (int i = 0; i < index - 1; i++)
             {
@@ -190,11 +196,11 @@ namespace LinkedList
             for (int i = 0; i < index; i++)
             {
                 if (temp == null)
-                    return int.MinValue;
+                    return -1;//int.MinValue;
                 temp = temp.GetNext();
             }
             if (temp == null)
-                return int.MinValue;
+                return -1;//int.MinValue;
             return temp.GetValue();
         }
     }
